@@ -29,9 +29,9 @@ namespace FileMerger
 
             } while (!fileCheck(file2));
 
-            string newText = MergeFiles(file1, file2);
-
-
+            string newText = ReadFile(file1) + ReadFile(file2);
+            Console.WriteLine(newText);
+            Console.ReadLine();
 
 
         }
@@ -45,7 +45,7 @@ namespace FileMerger
         static bool fileCheck(string filename)
         {
             if (File.Exists(filename)) return true;
-            
+
             Console.WriteLine("That file does not exist. Please enter filename again.");
             return false;
         }
@@ -56,67 +56,36 @@ namespace FileMerger
             return input;
         }
 
-        static string MergeFiles(string file1, string file2)
-        {
-            string content= "";
-            string line;
 
-            for (int i = 1; i <= 2; i++)
-            {
-                string readFile = "file" + i.ToString();    //read file1 and file2
-                try
-                {
-                    StreamReader sr = new StreamReader(readFile); //Will save to current directory
-                    
-                    line = sr.ReadLine();
-                    while(line != null)
-                    {
-                        content += line;
-                        line = sr.ReadLine();
-                    }
-                    
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Exception: " + e.Message);   //display exceptions
-                }
-                finally
-                {
-                    
-                }
-            }
-            Console.WriteLine(content);
-            Console.ReadLine();
-            return content;
-        }
 
         static string ReadFile(string Filename)
         {
             string content = "";
             string line;
 
-            
-                try
-                {
-                    StreamReader sr = new StreamReader(Filename); //Will save to current directory
 
+            try
+            {
+                StreamReader sr = new StreamReader(Filename); //Will save to current directory
+
+                line = sr.ReadLine();
+                while (line != null)
+                {
+                    content += line;
                     line = sr.ReadLine();
-                    while (line != null)
-                    {
-                        content += line;
-                        line = sr.ReadLine();
-                    }
+                }
 
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Exception: " + e.Message);   //display exceptions
-                }
-                finally
-                {
-                
-                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);   //display exceptions
+            }
+            finally
+            {
+
+            }
             return content;
-        
+
+        }
     }
 }
