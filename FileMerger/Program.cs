@@ -14,25 +14,32 @@ namespace FileMerger
             Console.WriteLine("------Document Merger------");
             string file1;
             string file2;
-
+            string response;
             do
             {
-                Console.WriteLine("\nWhat is the name of the first text file?");
-                file1 = TxtCheck(Console.ReadLine());
 
-            } while (!fileCheck(file1));    //Loop if file is not found
+                do
+                {
+                    Console.WriteLine("\nWhat is the name of the first text file?");
+                    file1 = TxtCheck(Console.ReadLine());
 
-            do
-            {
-                Console.WriteLine("\nWhat is the name of the second text file?");
-                file2 = TxtCheck(Console.ReadLine());
+                } while (!fileCheck(file1));    //Loop if file is not found
 
-            } while (!fileCheck(file2));
+                do
+                {
+                    Console.WriteLine("\nWhat is the name of the second text file?");
+                    file2 = TxtCheck(Console.ReadLine());
 
-            string newText = ReadFile(file1) + ReadFile(file2);
-            Console.WriteLine(newText);
-            Console.ReadLine();
+                } while (!fileCheck(file2));
 
+                string newText = ReadFile(file1) + ReadFile(file2); //newText will contain the contents of both files
+
+                string newFilename = RemoveTxt(file1) + file2;
+                WriteFile(newText, newFilename);
+
+                Console.WriteLine("Would you like to merge 2 more files? Y to continue");
+                response = Console.ReadLine().ToUpper();
+            } while (response == "Y");
 
         }
 
@@ -86,6 +93,26 @@ namespace FileMerger
             }
             return content;
 
+        }
+
+        static void WriteFile(string FileContent, string Filename)
+        {
+            try
+            {
+                StreamWriter sw = new StreamWriter(Filename); //Will save to current directory
+
+                sw.WriteLine(FileContent);
+
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);   //display exceptions
+            }
+            finally
+            {
+                Console.WriteLine("File was successfully written.");
+            }
         }
     }
 }
