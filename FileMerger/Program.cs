@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*Charles Bruscato
+ * File Merger
+ * Musser IT 2001
+ * July 13, 2018
+ */
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -73,7 +81,7 @@ namespace FileMerger
 
             try
             {
-                StreamReader sr = new StreamReader(Filename); //Will save to current directory
+                StreamReader sr = new StreamReader(Filename); 
 
                 line = sr.ReadLine();
                 while (line != null)
